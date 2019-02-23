@@ -13,17 +13,17 @@ standalone: cpu_standalone gpu_standalone
 
 
 cpu_standalone: standalone/cpu/Dockerfile
-	$(DOCKER) build -t caffe:cpu standalone/cpu
+	$(DOCKER) build -t jdc-caffe:cpu -f standalone/cpu/Dockerfile ../
 
 gpu_standalone: standalone/gpu/Dockerfile
-	$(DOCKER) build -t caffe:gpu standalone/gpu
+	$(DOCKER) build -t jdc-caffe:gpu -f standalone/gpu/Dockerfile ../
 
 docker_files: standalone_files
 
 standalone_files: standalone/cpu/Dockerfile standalone/gpu/Dockerfile
 
-FROM_GPU = "nvidia/cuda:7.5-cudnn5-devel-ubuntu14.04"
-FROM_CPU = "ubuntu:14.04"
+FROM_GPU = "nvidia/cuda:10.0-cudnn7-devel-ubuntu18.04"
+FROM_CPU = "ubuntu:18.04"
 GPU_CMAKE_ARGS = -DUSE_CUDNN=1
 CPU_CMAKE_ARGS = -DCPU_ONLY=1
 
